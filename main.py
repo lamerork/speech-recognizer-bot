@@ -2,13 +2,17 @@ from environs import Env
 from telegram import Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 
+from dialogflow import detect_intent_texts
+
 
 def start(update: Update, context: CallbackContext) -> None:
     update.message.reply_text('Здравствуйте!')
 
 
-def echo(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text(update.message.text)
+def reply(update: Update, context: CallbackContext) -> None:
+    session_id = update.effective_user['id']
+    answer = detect_intent_texts(session_id, update.message.text, 'ru-RU')
+    update.message.reply_text(answer)
 
 
 def main():
@@ -19,7 +23,7 @@ def main():
     dispatcher = updater.dispatcher
 
     dispatcher.add_handler(CommandHandler("start", start))
-    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
+    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, reply))
 
     updater.start_polling()
     updater.idle()
