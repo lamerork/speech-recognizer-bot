@@ -73,9 +73,9 @@ def main():
         return
 
     for training_phrase in training_phrases:
-            create_intent(training_phrase, 
-                          training_phrases[training_phrase]['questions'], 
-                          [training_phrases[training_phrase]['answer']])
+        create_intent(training_phrase, 
+                      training_phrases[training_phrase]['questions'], 
+                      [training_phrases[training_phrase]['answer']])
 
 
 if __name__ == '__main__':
