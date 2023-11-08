@@ -54,7 +54,7 @@ def create_intent(display_name, training_phrases_parts, message_texts):
 
 def main():
 
-    parser = argparse.ArgumentParser(description='Загрузка диалогов для DialogFlow')
+    parser = argparse.ArgumentParser(description='Загрузка json файла с диалогами для DialogFlow')
     parser.add_argument('--json', help='Файл с диалогами')
     parser.add_argument('--link', help='Ссылка на файл с диалогами')
     arguments = parser.parse_args()
@@ -69,6 +69,7 @@ def main():
 
         training_phrases = response.json()
     else:
+        print('Параметры не заданы')
         return
 
     for training_phrase in training_phrases:
