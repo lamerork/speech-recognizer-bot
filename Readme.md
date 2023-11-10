@@ -17,7 +17,7 @@
 - `TELEGRAM_CHAT_ID` -  id чата, куда будут отправляться логи (можно узнать у @userinfobot).
 - `GOOGLE_APPLICATION_CREDENTIALS` - путь к файлу json с секретным ключом, ([документация](https://cloud.google.com/docs/authentication/client-libraries))
 - `GOOGLE_PRODJECT_ID` - идентификатор проекта в DialogFlow ([документация](https://cloud.google.com/dialogflow/es/docs/quick/setup))
-- `VK_TOKEN_GROUP ` - ключ группы VK, [документация](https://vk.com/dev/implicit_flow_user)
+- `VK_TOKEN_GROUP ` - ключ группы VK ([документация](https://vk.com/dev/implicit_flow_user))
 
 ## Как запустить
 
