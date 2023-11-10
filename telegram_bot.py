@@ -5,22 +5,10 @@ import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 
 from dialogflow import detect_intent_texts
+from telegram_log import TelegramLogsHandler
 
 
 logger = logging.getLogger('Logger')
-
-
-class TelegramLogsHandler(logging.Handler):
-
-    def __init__(self, tg_bot, bot_name, chat_id):
-        super().__init__()
-        self.chat_id = chat_id
-        self.tg_bot = tg_bot
-        self.bot_name = bot_name
-
-    def emit(self, record):
-        log_entry = f'<b>{self.bot_name}:</b>\n{self.format(record)}'
-        self.tg_bot.send_message(chat_id=self.chat_id, text=log_entry, parse_mode=telegram.ParseMode.HTML)
 
 
 def start(update: telegram.Update, context: CallbackContext) -> None:
@@ -30,7 +18,7 @@ def start(update: telegram.Update, context: CallbackContext) -> None:
 def reply(update: telegram.Update, context: CallbackContext) -> None:
     session_id = update.effective_user['id']
     answer = detect_intent_texts(session_id, update.message.text, 'ru-RU')
-    if answer == None:
+    if not answer:
         answer = 'Попробуй, пожалуйста, выразить свою мысль по-другому'
     update.message.reply_text(answer)
 
@@ -39,10 +27,10 @@ def main():
     env = Env()
     env.read_env()
 
-    updater = Updater(env.str('TELEGRAM_TOKEN'))
     logger_bot = telegram.Bot(token=env.str('TELEGRAM_LOG_TOKEN'))
     chat_id = env.str('TELEGRAM_CHAT_ID')
 
+    updater = Updater(env.str('TELEGRAM_TOKEN'))
     dispatcher = updater.dispatcher
 
     logger.setLevel(logging.INFO)
