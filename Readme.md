@@ -65,6 +65,11 @@ python dialogflow.py --link 'Ссылка на файл в формате JSON'
 
 ## Пример работы
 
+### Telegram
+![telegram-bot](https://github.com/lamerork/speech-recognizer-bot/assets/65411132/e9fb0b81-4d31-4118-a553-a684e22be111)
+### Vkontakte
+![vk-bot](https://github.com/lamerork/speech-recognizer-bot/assets/65411132/6d100508-5036-41cd-86fe-1d789f82e7bd)
+
 
 ## Цели проекта
 
