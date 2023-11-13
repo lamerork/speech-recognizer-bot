@@ -39,8 +39,8 @@ def main():
             if event.type != VkEventType.MESSAGE_NEW:
                 continue
 
-            answer = detect_intent_texts(event.user_id, event.text, 'ru-RU')
-            if not answer:
+            is_fallback, answer = detect_intent_texts(event.user_id, event.text, 'ru-RU')
+            if is_fallback:
                 continue
 
             vk_api.messages.send(

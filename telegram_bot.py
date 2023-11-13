@@ -18,9 +18,8 @@ def start(update: telegram.Update, context: CallbackContext) -> None:
 
 def reply(update: telegram.Update, context: CallbackContext) -> None:
     session_id = update.effective_user['id']
-    answer = detect_intent_texts(session_id, update.message.text, 'ru-RU')
-    if not answer:
-        answer = 'Попробуй, пожалуйста, выразить свою мысль по-другому'
+    _, answer = detect_intent_texts(session_id, update.message.text, 'ru-RU')
+
     update.message.reply_text(answer)
 
 
