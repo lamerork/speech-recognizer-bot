@@ -1,8 +1,7 @@
 from environs import Env
 import logging
-from time import sleep
-
 from dotenv import load_dotenv
+
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 
@@ -51,7 +50,6 @@ def main():
 
     except ConnectionError:
         logger.warning('Ошибка соединения')
-        sleep(60)
 
     except Exception as err:
         logger.exception(err)
