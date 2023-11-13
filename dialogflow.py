@@ -1,9 +1,9 @@
 import os
 
-from dotenv import load_dotenv
 import argparse
 import json
 import requests
+from dotenv import load_dotenv
 
 from google.cloud import dialogflow
 
@@ -77,10 +77,10 @@ def main():
         print('Параметры не заданы')
         return
 
-    for training_phrase in training_phrases:
-        create_intent(training_phrase,
-                      training_phrases[training_phrase]['questions'], 
-                      [training_phrases[training_phrase]['answer']])
+    for intent_name, items in training_phrases.items():
+        create_intent(intent_name,
+                      items['questions'],
+                      [items['answer']])
 
 
 if __name__ == '__main__':
