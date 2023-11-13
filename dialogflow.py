@@ -1,4 +1,6 @@
-from environs import Env
+import os
+
+from dotenv import load_dotenv
 import argparse
 import json
 import requests
@@ -6,13 +8,9 @@ import requests
 from google.cloud import dialogflow
 
 
-env = Env()
-env.read_env()
-
-project_id = env.str('GOOGLE_PRODJECT_ID')
-
-
 def detect_intent_texts(session_id, texts, language_code):
+
+    project_id = os.getenv('GOOGLE_PRODJECT_ID')
 
     session_client = dialogflow.SessionsClient()
     session = session_client.session_path(project_id, session_id)
@@ -30,6 +28,8 @@ def detect_intent_texts(session_id, texts, language_code):
 
 
 def create_intent(display_name, training_phrases_parts, message_texts):
+
+    project_id = os.getenv('GOOGLE_PRODJECT_ID')
 
     intents_client = dialogflow.IntentsClient()
 
@@ -57,6 +57,8 @@ def create_intent(display_name, training_phrases_parts, message_texts):
 
 def main():
 
+    load_dotenv()
+
     parser = argparse.ArgumentParser(description='Загрузка json файла с диалогами для DialogFlow')
     parser.add_argument('--json', help='Файл с диалогами')
     parser.add_argument('--link', help='Ссылка на файл с диалогами')
@@ -76,7 +78,7 @@ def main():
         return
 
     for training_phrase in training_phrases:
-        create_intent(training_phrase, 
+        create_intent(training_phrase,
                       training_phrases[training_phrase]['questions'], 
                       [training_phrases[training_phrase]['answer']])
 

@@ -1,6 +1,7 @@
 import logging
 from telegram import ParseMode
 
+
 class TelegramLogsHandler(logging.Handler):
 
     def __init__(self, tg_bot, bot_name, chat_id):

@@ -1,7 +1,7 @@
 from environs import Env
 import random
 import logging
-from time import sleep
+from dotenv import load_dotenv
 
 import telegram
 import vk_api as vk
@@ -17,6 +17,8 @@ logger = logging.getLogger('Logger')
 def main():
     env = Env()
     env.read_env()
+
+    load_dotenv()
 
     logger_bot = telegram.Bot(token=env.str('TELEGRAM_LOG_TOKEN'))
     chat_id = env.str('TELEGRAM_CHAT_ID')

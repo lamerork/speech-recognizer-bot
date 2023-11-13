@@ -1,6 +1,8 @@
 from environs import Env
 import logging
 from time import sleep
+
+from dotenv import load_dotenv
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 
@@ -26,6 +28,8 @@ def reply(update: telegram.Update, context: CallbackContext) -> None:
 def main():
     env = Env()
     env.read_env()
+
+    load_dotenv()
 
     logger_bot = telegram.Bot(token=env.str('TELEGRAM_LOG_TOKEN'))
     chat_id = env.str('TELEGRAM_CHAT_ID')
