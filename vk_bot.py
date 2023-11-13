@@ -34,12 +34,20 @@ def main():
 
     try:
         for event in longpoll.listen():
-            if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-                answer = detect_intent_texts(event.user_id, event.text, 'ru-RU')
-                if answer:
-                    vk_api.messages.send(user_id=event.user_id,
-                                         message=answer,
-                                         random_id=random.randint(1, 1000))
+            if not event.to_me:
+                continue
+            if event.type != VkEventType.MESSAGE_NEW:
+                continue
+
+            answer = detect_intent_texts(event.user_id, event.text, 'ru-RU')
+            if not answer:
+                continue
+
+            vk_api.messages.send(
+                user_id=event.user_id,
+                message=answer,
+                random_id=random.randint(1, 1000)
+            )
 
     except ConnectionError:
         logger.warning('Ошибка соединения')
